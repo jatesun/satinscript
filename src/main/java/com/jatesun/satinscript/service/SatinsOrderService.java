@@ -38,6 +38,15 @@ public class SatinsOrderService {
         return orderList;
     }
 
+    public List<SatinsOrder> getByOrderId(String orderId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("order_id", orderId);
+        List<SatinsOrder> orderList = satinsOrderMapper.selectByMap(map);
+        return orderList;
+    }
+
+
+
     public void deleteByTransId(String transId) {
         Map<String, Object> map = new HashMap<>();
         map.put("trans_id", transId);
