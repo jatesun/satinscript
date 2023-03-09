@@ -29,6 +29,24 @@ public class UploadService {
     @Autowired
     private UtilService utilService;
 
+    public Long getFileSizeBySessionId(String sessionId) {
+        List<File> fileList = tmpFileMap.get(sessionId);
+        if (fileList != null && fileList.size() != 0) {
+            Long size = 0L;
+            for (File file : fileList) {
+                size = size + file.length();
+            }
+            return size;
+        } else {
+            return 0L;
+        }
+    }
+
+    public List<File> getFileBySessionId(String sessionId){
+        List<File> fileList = tmpFileMap.get(sessionId);
+        return fileList;
+    }
+
     /**
      * 临时保存多文件
      *

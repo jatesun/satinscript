@@ -5,12 +5,15 @@ import com.jatesun.satinscript.dto.PayData;
 import com.jatesun.satinscript.service.BtcTranService;
 import com.jatesun.satinscript.service.Greeting;
 import com.jatesun.satinscript.service.SatinsOrderService;
+import com.jatesun.satinscript.service.UploadService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -20,8 +23,10 @@ public class SatinscriptController {
     private final AtomicLong counter = new AtomicLong();
     @Autowired
     private SatinsOrderService satinsOrderService;
-//    @Autowired
-//    private BtcTranService btcTranService;
+    @Autowired
+    private BtcTranService btcTranService;
+    @Autowired
+    private UploadService uploadService;
 
     @GetMapping("/hello")
     public String sayHello(@RequestParam(value = "myName", defaultValue = "World") String name) {
@@ -39,12 +44,25 @@ public class SatinscriptController {
         return satinsOrderService.getByOrderId(orderId);
     }
 
-//    @GetMapping("/getBtcAddress")
-//    @CrossOrigin
-//    public String getBtcAddress(@RequestParam(value = "orderId", defaultValue = "") String orderId) {
-//        System.out.println("调用");
-//        PayData payData = new PayData();
-//        payData.setReceiveAddress(btcTranService.getBtcAddress());
-//        return payData.getReceiveAddress();
-//    }
+    @GetMapping("/getBtcAddress")
+    @CrossOrigin
+    public String getBtcAddress(@RequestParam(value = "payAmount", defaultValue = "") Double payAmount,
+                                @RequestParam(value = "network", defaultValue = "") Double network,
+                                @RequestParam(value = "service", defaultValue = "") Double service,
+                                @RequestParam(value = "fileSize", defaultValue = "") Long fileSize,
+                                @RequestParam(value = "feeRate", defaultValue = "") Integer feeRate,
+                                @RequestParam(value = "sessionId", defaultValue = "") String sessionId,
+                                @RequestParam(value = "receiveAddress", defaultValue = "") String receiveAddress,
+                                HttpServletRequest request) {
+        System.out.println("参数：payamount:" + payAmount + ",filesize:" + fileSize + ",sessionId:" + sessionId + ",feerate:" + feeRate + "," + network + "," + service + "," + receiveAddress);
+        Long innerFileSize = uploadService.getFileSizeBySessionId(sessionId);
+        System.out.println("innersize:" + innerFileSize);
+        if (innerFileSize.equals(fileSize)) {
+            satinsOrderService.saveNewOrderInfo(feeRate, payAmount, service, fileSize, sessionId, receiveAddress);
+            return btcTranService.getBtcAddress();
+        } else {
+            return "illegal request,please fresh website and retry.";
+        }
+
+    }
 }

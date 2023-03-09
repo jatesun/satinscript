@@ -23,7 +23,8 @@ public class UploadFileController {
     public String uploadFile(MultipartFile[] file, HttpServletRequest request) {
 //        String transId = UUID.randomUUID().toString();
         String sessionId = request.getSession().getId();
-        return uploadService.tmpSaveMultiFile(sessionId, List.of(file));
+        String fileSize = uploadService.tmpSaveMultiFile(sessionId, List.of(file));
+        return fileSize + "," + sessionId;
     }
 
 }

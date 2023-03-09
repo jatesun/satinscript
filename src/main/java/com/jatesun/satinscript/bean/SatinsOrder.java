@@ -21,7 +21,7 @@ public class SatinsOrder implements Serializable {
 
     private Double transFee;
 
-    private Double feeRate;
+    private Integer feeRate;
 
     private Double serviceFee;
 

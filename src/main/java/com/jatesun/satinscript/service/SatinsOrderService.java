@@ -5,9 +5,12 @@ import com.jatesun.satinscript.dao.SatinsOrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 订单服务类
@@ -17,6 +20,8 @@ import java.util.Map;
 public class SatinsOrderService {
     @Autowired
     private SatinsOrderMapper satinsOrderMapper;
+    @Autowired
+    private UploadService uploadService;
 
     /**
      * 新增或修改
@@ -31,6 +36,25 @@ public class SatinsOrderService {
         }
     }
 
+    public String saveNewOrderInfo(Integer feeRate, Double payAmount,Double serviceFee, Long fileSize, String sessionId,String receiveAddress) {
+        String orderId = UUID.randomUUID().toString();
+        List<File> fileList = uploadService.getFileBySessionId(sessionId);
+        for (File file : fileList) {
+            SatinsOrder order = new SatinsOrder();
+            order.setOrderId(orderId);
+            order.setFeeRate(feeRate);
+            order.setFilePath(file.getPath());
+            order.setServiceFee(serviceFee);
+            order.setTotalFee(payAmount);
+            order.setPayStatus(false);
+            order.setSendStatus(false);
+            order.setReceiveAddress(receiveAddress);
+            save(order);
+        }
+        return orderId;
+    }
+
+
     public List<SatinsOrder> getByTransId(String transId) {
         Map<String, Object> map = new HashMap<>();
         map.put("trans_id", transId);
@@ -44,7 +68,6 @@ public class SatinsOrderService {
         List<SatinsOrder> orderList = satinsOrderMapper.selectByMap(map);
         return orderList;
     }
-
 
 
     public void deleteByTransId(String transId) {
