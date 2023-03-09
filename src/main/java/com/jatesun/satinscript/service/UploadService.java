@@ -38,12 +38,15 @@ public class UploadService {
     public String tmpSaveMultiFile(String transId, List<MultipartFile> fileList) {
         String folderPath = this.getSaveFolderPath();
         File folder = new File(folderPath);
+        Long totalSize = 0L;
+        tmpFileMap.remove(transId);//先删除之前的记录
         for (MultipartFile file : fileList) {
+            totalSize = totalSize + file.getSize();
             if (!tmpSaveSingleFile(transId, folder, file)) {
                 return "file.getName()+ upload failed!";
             }
         }
-        return "success";
+        return String.valueOf(totalSize);
     }
 
     /**

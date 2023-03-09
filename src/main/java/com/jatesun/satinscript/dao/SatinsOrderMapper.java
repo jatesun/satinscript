@@ -1,7 +1,7 @@
-package com.jatesun.satinscript.Dao;
+package com.jatesun.satinscript.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.jatesun.satinscript.Bean.SatinsOrder;
+import com.jatesun.satinscript.bean.SatinsOrder;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

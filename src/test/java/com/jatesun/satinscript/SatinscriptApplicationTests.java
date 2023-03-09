@@ -1,7 +1,8 @@
 package com.jatesun.satinscript;
 
-import com.jatesun.satinscript.Bean.SatinsOrder;
-import com.jatesun.satinscript.Dao.SatinsOrderMapper;
+import com.jatesun.satinscript.bean.SatinsOrder;
+import com.jatesun.satinscript.dao.SatinsOrderMapper;
+import com.jatesun.satinscript.service.BtcTranService;
 import com.jatesun.satinscript.service.SatInscriptService;
 import com.jatesun.satinscript.service.SatinsOrderService;
 import com.jatesun.satinscript.service.UtilService;
@@ -23,6 +24,13 @@ class SatinscriptApplicationTests {
     private SatInscriptService satInscriptService;
     @Autowired
     private UtilService utilService;
+    @Autowired
+    private BtcTranService btcTranService;
+
+    @Test
+    public void testGetBtcAddress() {
+        btcTranService.getBtcAddress();
+    }
 
     @Test
     public void testInscriptService() throws IOException, InterruptedException {

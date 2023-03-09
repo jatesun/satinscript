@@ -1,7 +1,7 @@
 package com.jatesun.satinscript.service;
 
-import com.jatesun.satinscript.Bean.SatinsOrder;
-import com.jatesun.satinscript.Dao.SatinsOrderMapper;
+import com.jatesun.satinscript.bean.SatinsOrder;
+import com.jatesun.satinscript.dao.SatinsOrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

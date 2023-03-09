@@ -1,4 +1,4 @@
-package com.jatesun.satinscript.Bean;
+package com.jatesun.satinscript.bean;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
