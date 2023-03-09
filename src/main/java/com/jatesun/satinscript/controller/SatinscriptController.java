@@ -58,8 +58,8 @@ public class SatinscriptController {
         Long innerFileSize = uploadService.getFileSizeBySessionId(sessionId);
         System.out.println("innersize:" + innerFileSize);
         if (innerFileSize.equals(fileSize)) {
-            satinsOrderService.saveNewOrderInfo(feeRate, payAmount, service, fileSize, sessionId, receiveAddress);
-            return btcTranService.getBtcAddress();
+            String orderId = satinsOrderService.saveNewOrderInfo(feeRate, payAmount, service, fileSize, sessionId, receiveAddress);
+            return btcTranService.getBtcAddress() + "," + orderId;
         } else {
             return "illegal request,please fresh website and retry.";
         }

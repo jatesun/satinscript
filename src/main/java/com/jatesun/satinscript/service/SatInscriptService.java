@@ -29,7 +29,6 @@ public class SatInscriptService {
     public void satInscript(String orderId) throws IOException, InterruptedException {
         List<SatinsOrder> satinsOrders = satinsOrderService.getByOrderId(orderId);
         for (SatinsOrder order : satinsOrders) {
-            //ord wallet inscribe FILE
             List<String> result = shellCommand(List.of("ord", "wallet", "inscribe", order.getFilePath()));
             // todo 返回结果处理，保存inscribid,
         }
