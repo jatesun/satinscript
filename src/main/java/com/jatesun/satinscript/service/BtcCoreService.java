@@ -36,12 +36,13 @@ public class BtcCoreService {
 
     /**
      * getAddress
+     * 获取taproot地址
      *
      * @return
      */
-    public void getAddress() {
-        BigDecimal balance = client.getBalance();
-        System.out.println(balance);
+    public String getAddress() {
+        String address = client.getNewAddress("", "bech32m");
+        return address;
     }
 
     private String getConnectUrl() {

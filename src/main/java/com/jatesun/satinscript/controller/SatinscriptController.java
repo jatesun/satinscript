@@ -2,10 +2,7 @@ package com.jatesun.satinscript.controller;
 
 import com.jatesun.satinscript.bean.SatinsOrder;
 import com.jatesun.satinscript.dto.PayData;
-import com.jatesun.satinscript.service.BtcTranService;
-import com.jatesun.satinscript.service.Greeting;
-import com.jatesun.satinscript.service.SatinsOrderService;
-import com.jatesun.satinscript.service.UploadService;
+import com.jatesun.satinscript.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,6 +24,8 @@ public class SatinscriptController {
     private BtcTranService btcTranService;
     @Autowired
     private UploadService uploadService;
+    @Autowired
+    private BtcCoreService btcCoreService;
 
     @GetMapping("/hello")
     public String sayHello(@RequestParam(value = "myName", defaultValue = "World") String name) {
@@ -59,7 +58,7 @@ public class SatinscriptController {
         System.out.println("innersize:" + innerFileSize);
         if (innerFileSize.equals(fileSize)) {
             String orderId = satinsOrderService.saveNewOrderInfo(feeRate, payAmount, service, fileSize, sessionId, receiveAddress);
-            return btcTranService.getBtcAddress() + "," + orderId;
+            return btcCoreService.getAddress() + "," + orderId;
         } else {
             return "illegal request,please fresh website and retry.";
         }
