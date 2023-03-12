@@ -1,5 +1,7 @@
 package com.jatesun.satinscript.service;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jatesun.satinscript.bean.SatinsOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * ordinal铭刻服务类
@@ -17,6 +20,10 @@ import java.util.List;
 public class SatInscriptService {
     @Autowired
     private SatinsOrderService satinsOrderService;
+
+    public static void main(String[] args) {
+        SatInscriptService satInscriptService = new SatInscriptService();
+    }
 
     /**
      * 主铭刻方法
@@ -32,6 +39,13 @@ public class SatInscriptService {
             List<String> result = shellCommand(List.of("ord", "wallet", "inscribe", order.getFilePath()));
             // todo 返回结果处理，保存inscribid,
         }
+    }
+
+    public void test() throws IOException, InterruptedException {
+        String result = shellCommandRString(List.of("ord", "wallet", "receive"));
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> map = objectMapper.readValue(result, Map.class);
+        System.out.println(map.get("address"));
     }
 
     /**
@@ -100,8 +114,6 @@ public class SatInscriptService {
             System.out.println(line);
             stringBuilder.append(line);
         }
-
-        // 等待进程执行完成并获取返回值
         int exitCode = process.waitFor();
         System.out.println("Exit code: " + exitCode);
         return stringBuilder.toString();

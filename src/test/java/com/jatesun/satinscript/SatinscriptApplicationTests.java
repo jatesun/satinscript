@@ -2,10 +2,7 @@ package com.jatesun.satinscript;
 
 import com.jatesun.satinscript.bean.SatinsOrder;
 import com.jatesun.satinscript.dao.SatinsOrderMapper;
-import com.jatesun.satinscript.service.BtcTranService;
-import com.jatesun.satinscript.service.SatInscriptService;
-import com.jatesun.satinscript.service.SatinsOrderService;
-import com.jatesun.satinscript.service.UtilService;
+import com.jatesun.satinscript.service.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,10 +23,12 @@ class SatinscriptApplicationTests {
     private UtilService utilService;
     @Autowired
     private BtcTranService btcTranService;
+    @Autowired
+    private BtcCoreService btcCoreService;
 
     @Test
-    public void testGetBtcAddress() {
-        btcTranService.getBtcAddress();
+    public void testGetBtcAddress() throws IOException, InterruptedException {
+        btcCoreService.getAddress();
     }
 
     @Test

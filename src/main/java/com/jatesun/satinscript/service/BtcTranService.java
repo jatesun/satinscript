@@ -23,6 +23,8 @@ public class BtcTranService {
     @PostConstruct
     public void initWallet() throws UnreadableWalletException {
         wallet = Wallet.loadFromFile(walletDir);
+//        Wallet bitcoinjWallet = new Wallet(NetworkParameters.ID_MAINNET);
+//        WalletTool.fromBitcoinCoreWallet(bitcoinjWallet, new File(walletFile));
 //        NetworkParameters params = TestNet3Params.get(); // 选择测试网络
 //        WalletAppKit kit = new WalletAppKit(params, walletDir, walletName);
 //        kit.startAsync();
