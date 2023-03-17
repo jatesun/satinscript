@@ -32,4 +32,6 @@ public class SatinsOrder implements Serializable {
     private Boolean sendStatus;
 
     private String receiveAddress;//客户接收的地址
+
+    private String payAddress;//用户需要支付的地址
 }

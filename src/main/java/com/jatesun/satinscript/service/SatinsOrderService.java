@@ -36,7 +36,7 @@ public class SatinsOrderService {
         }
     }
 
-    public String saveNewOrderInfo(Integer feeRate, Double payAmount,Double serviceFee, Long fileSize, String sessionId,String receiveAddress) {
+    public String saveNewOrderInfo(Integer feeRate, Double payAmount,Double serviceFee, Long fileSize, String sessionId,String receiveAddress,String payAddress) {
         String orderId = UUID.randomUUID().toString();
         List<File> fileList = uploadService.getFileBySessionId(sessionId);
         for (File file : fileList) {
@@ -48,6 +48,7 @@ public class SatinsOrderService {
             order.setTotalFee(payAmount);
             order.setPayStatus(false);
             order.setSendStatus(false);
+            order.setPayAddress(payAddress);
             order.setReceiveAddress(receiveAddress);
             save(order);
         }

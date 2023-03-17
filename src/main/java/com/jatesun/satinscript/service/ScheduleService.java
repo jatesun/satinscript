@@ -8,4 +8,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class ScheduleService {
 
+    //处理没有支付的订单类，每天凌晨处理超过12小时没有支付的订单
+    public void dealOrderUnpayed() {
+
+    }
+
 }

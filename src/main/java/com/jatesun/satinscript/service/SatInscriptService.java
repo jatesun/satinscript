@@ -62,6 +62,11 @@ public class SatInscriptService {
         }
     }
 
+    public void sendInscribeByOrder(SatinsOrder order) throws IOException, InterruptedException {
+        List<String> result = shellCommand(List.of("ord", "wallet", "send", "--fee-rate", order.getFeeRate().toString(), order.getReceiveAddress(), order.getInscriptionId()));
+        //todo 后续处理，修改状态
+    }
+
     /**
      * 主要的shell脚本方法
      *

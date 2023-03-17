@@ -28,7 +28,8 @@ class SatinscriptApplicationTests {
 
     @Test
     public void testGetBtcAddress() throws IOException, InterruptedException {
-        btcCoreService.getAddress();
+//        btcCoreService.getAddress();
+        btcCoreService.listenAddressReceivedBtc();
     }
 
     @Test
